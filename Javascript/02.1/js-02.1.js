@@ -8,7 +8,7 @@ document.write("<p>Percorrendo um array através do forEach</p>");
 products.forEach((products) => {
   document.write(`<p>${products}</p>`);
 });
-//Traduzindo acima: Para cada elemento dentro da array escreva no documento...
+//Traduzindo acima: Para cada elemento dentro da array escreva no documento... É tipo um for... se pa ta no nome né idiota...
 
 document.write("<p>Mostrando os indices e valores com forEach</p>");
 products.forEach((products, i) => {
