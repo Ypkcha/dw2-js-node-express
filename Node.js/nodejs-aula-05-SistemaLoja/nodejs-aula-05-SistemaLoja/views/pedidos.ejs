@@ -1,5 +1,35 @@
 <%- include ('partials/header.ejs') %>
 <%- include ('partials/navbar.ejs') %>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h1>Cadastrar pedidos</h1>
+    </div>
+    <div class="card-body">
+      <!-- Formulário de cadastro -->
+      <form action="/pedidos/new" method="POST">
+        <label>Numero do pedido:</label>
+        <input
+          type="text"
+          name="numero"
+          placeholder="Insira o numero do pedido"
+          class="form-control"
+          required
+        />
+        <label>valor do pedido:</label>
+        <input
+          type="double"
+          name="valor"
+          placeholder="Insira o valor do pedido"
+          class="form-control"
+          required
+        />
+        <input type="submit" class="btn btn-success" value="Cadastrar" />
+        <input type="reset" class="btn btn-danger" value="Limpar" />
+      </form>
+    </div>
+  </div>
+</div>
 
     <div class="container">
         <div class="card">
@@ -13,6 +43,7 @@
                             <th></th>
                             <th>Número:</th>
                             <th>Valor:</th>
+                            <th colspan="2" style="text-align: center">Ações:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,6 +52,18 @@
                             <td><img src="imgs/order.png" width="30px"></td>
                             <td><%= pedido.numero %></td>
                             <td><%= pedido.valor.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'}) %></td>
+                            <td><a href="/pedidos/edit/<%= pedido.id %>">
+                    <button class="btn btn-warning">Editar</button></td></a>
+            <td>
+              <a href="/pedidos/delete/<%= pedido.id %>">
+                <button
+                  class="btn btn-danger"
+                  onclick="return confirm('Deseja mesmo exluir o pedido <% pedido.numero %>?')"
+                >
+                  Excluir
+                </button>
+              </a>
+            </td>
                         </tr>
                         <% }) %>
                     </tbody>
