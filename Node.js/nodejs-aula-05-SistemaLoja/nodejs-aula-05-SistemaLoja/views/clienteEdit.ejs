@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
       <!-- Formulário de edição -->
-      <form action="" method="POST">
+      <form action="/clientes/update/<%= cliente.id %>" method="POST">
         <label>Nome do cliente:</label>
         <input
           type="text"
@@ -35,8 +35,13 @@
           value="<%= cliente.endereco %>"
           required
         />
-        <input type="submit" class="btn btn-success" value="Alterar" onclick="return confirm('Confirma as alterações realizadas para o cliente <%= cliente.nome %>?')"/>
-        <input type="reset" class="btn btn-danger" value="Limpar"/>
+        <input
+          type="submit"
+          class="btn btn-success"
+          value="Alterar"
+          onclick="return confirm('Confirma as alterações realizadas para o cliente <%= cliente.nome %>?')"
+        />
+        <input type="reset" class="btn btn-danger" value="Limpar" />
       </form>
     </div>
   </div>
