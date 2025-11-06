@@ -1,8 +1,10 @@
 import express from "express"
 const router = express.Router()
+// Importando o middleware de autenticação
+import Auth from "../middleware/auth.js";
 
 // ROTA PRODUTOS
-router.get("/produtos",function(req,res){
+router.get("/produtos",Auth,function(req,res){
     const produtos = [
         {nome: "Celular Motorola E22", preco: 1200, categoria: "Eletroportáteis"},
         {nome: "Tablet Samsung", preco: 900, categoria: "Eletrônicos"},

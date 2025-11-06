@@ -1,18 +1,62 @@
 import express from "express";
+import Top from "../models/Top.js";
 const router = express.Router();
 
 // conteudo da rota
 router.get("/top", (req, res) => {
-  const topLaners = [
-    { campeao: "Poppy", classe: "Tanque", motivo: "É praticamente uma piada que essa pintora de rodapé consegue dar dano e aguentar 2/3 pessoas quando ela tem 2 itens, dito isso adoro ela" },
-    { campeao: "Gnar", classe: "Lutador", motivo: "Na duvida eu pego ele, adoro esse baixinho" },
-    { campeao: "Ornn", classe: "Tanque", motivo: "Mais um tanque que consegue dar dano? esse jogo é tão bom" },
-    { campeao: "Camille", classe: "Lutador", motivo: "Tava com vontade de me desafiar então comecei a jogar com ela" },
-    { campeao: "Fiora", classe: "Lutador", motivo: "Sabe quando do nada da uma vontade de mudar o jeito que você se porta? eu começar a jogar com ela é praticamente a mesma coisa" },
-  ];
-  res.render("top", {
-    topLaners: topLaners,
+  Top.findAll().then((topLaners) => {
+    res.render("top", {
+      topLaners: topLaners,
+    });
   });
 });
-
+router.post("/top/new", (req, res) => {
+  const campeao = req.body.campeao;
+  const classe = req.body.classe;
+  const motivo = req.body.motivo;
+  Top.create({
+    campeao: campeao,
+    classe: classe,
+    motivo: motivo,
+  }).then(() => {
+    res.redirect("/top");
+  });
+});
+//rota de exclusão
+router.get("/top/delete/:id", (req, res) => {
+  const id = req.params.id;
+  Top.destroy({
+    where: {
+      id: id,
+    },
+  }).then(() => {
+    res.redirect("/top");
+  });
+});
+//rota de edição
+router.get("/top/edit/:id", (req, res) => {
+  const id = req.params.id;
+  Top.findByPk(id).then((topLaners) => {
+    res.render("topEdit", {
+      topLaners: topLaners,
+    });
+  });
+});
+//Rota de alteração
+router.post("/top/update/:id", (req, res) => {
+  const id = req.body.id;
+  const campeao = req.body.campeao;
+  const classe = req.body.classe;
+  const motivo = req.body.motivo;
+  Top.update(
+    {
+      campeao: campeao,
+      classe: classe,
+      motivo: motivo,
+    },
+    { where: { id: id } }
+  ).then(() => {
+    res.redirect("/top");
+  });
+});
 export default router;
